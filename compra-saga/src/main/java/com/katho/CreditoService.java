@@ -1,6 +1,7 @@
 package com.katho;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.camel.Header;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class CreditoService {
         this.creditoTotal = 100;
     }
 
-    public void newPedidoValor(Long pedidoId, int valor) {
+    public void newPedidoValor(@Header("pedidoId") Long pedidoId, @Header("valor") int valor) {
         if (valor > creditoTotal) {
             throw new IllegalStateException("Saldo Insuficiente");
         }
@@ -25,8 +26,9 @@ public class CreditoService {
     }
 
     public void cancelPedidoValor(Long id ) {
-        creditoTotal = creditoTotal + pedido_valor.get(id);
-        pedido_valor.remove(id);
+        //creditoTotal = creditoTotal + pedido_valor.get(id);
+        //pedido_valor.remove(id);
+        System.out.println("Pedido Valor falou. Iniciando cancelamento do pedido. Saldo insuficiente.");
     }
 
     public int getCreditoTotal() {

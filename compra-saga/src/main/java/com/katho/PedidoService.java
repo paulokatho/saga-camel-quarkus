@@ -1,6 +1,7 @@
 package com.katho;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.camel.Header;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +11,7 @@ public class PedidoService {
 
     private Set<Long> pedidos = new HashSet<>();
 
-    public void newPedido(Long id) {
+    public void newPedido(@Header("id") Long id) {
         pedidos.add(id);
     }
 
