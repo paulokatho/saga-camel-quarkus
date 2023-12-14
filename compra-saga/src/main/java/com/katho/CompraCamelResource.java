@@ -12,7 +12,7 @@ import org.apache.camel.CamelContext;
 public class CompraCamelResource {
 
     @Inject
-    CamelContext camelContext;
+    CamelContext context;
 
     @Path("teste-saga")
     @Produces(MediaType.TEXT_PLAIN)
@@ -30,7 +30,7 @@ public class CompraCamelResource {
 
     //Chamando nossa Saga
     private void comprar(Long id, int valor) {
-        camelContext.createFluentProducerTemplate()
+        context.createFluentProducerTemplate()
                 .to("direct:saga")
                 .withHeader("id", id)
                 .withHeader("pedidoId", id)
