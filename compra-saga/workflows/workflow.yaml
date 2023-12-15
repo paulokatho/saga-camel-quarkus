@@ -1,0 +1,30 @@
+name: Java CI - Compra Saga
+
+on:
+  push:
+    branches: [ "feat/dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build project
+        run: mvn clean package -DskipTests
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: 'https://paulokatho-compra-saga.com.br'
+    needs: build
+    steps:
+      - name: Run a one-line script
+        run: echo Deploy Katho - Compra Saga
